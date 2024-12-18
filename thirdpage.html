@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <title>Happy Birthday Chapriiii</title>
+    <link rel="icon" href="static/photo/chuha.jpg" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:300');
+        /* Set default styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            animation: changeBackground 20s infinite;
+            overflow: hidden;
+            background-repeat: no-repeat;
+        }
+
+        /* Define the background animation */
+        @keyframes changeBackground {
+            0% {
+                background-image: url('static/photo/Designer\ \(1\).jpeg');
+            }
+
+            25% {
+                background-image: url('static/photo/Designer\ \(3\).jpeg');
+            }
+
+            50% {
+                background-image: url('static/photo/Designer\ \(4\).jpeg');
+            }
+
+            75% {
+                background-image: url('static/photo/Designer\ \(5\).jpeg');
+            }
+
+            100% {
+                background-image: url('static/photo/Designer\ \(2\).jpeg');
+            }
+        }
+
+        .rainbow {
+            letter-spacing: 0.2rem;
+            font-size: 2.5rem;
+            /* Increased font size */
+            font-family: Lato, serif;
+            font-weight: 1000;
+            /* Added font weight for thickness */
+            text-transform: uppercase;
+            position: absolute;
+            top: 5%;
+            /* Positioned text near the top */
+            width: 100%;
+            /* Ensures the text spans the width */
+            text-align: center;
+            /* Centers the text horizontally */
+        }
+
+        .rainbow span {
+            display: inline-block;
+            animation: rainbow 2s infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                color: red;
+            }
+
+            25% {
+                color: orange;
+            }
+
+            50% {
+                color: yellow;
+            }
+
+            75% {
+                color: green;
+            }
+
+            100% {
+                color: blue;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rainbow">Happiiest Birthdayy Buddhhuu chuhheee</div>
+
+    <script>
+        let rainbowText = document.querySelector(".rainbow");
+        let letters = rainbowText.textContent.split(""); // Split text into individual characters
+        rainbowText.textContent = ""; // Clear the existing content
+
+        letters.forEach((letter, i) => {
+            let span = document.createElement("span");
+            span.textContent = letter === " " ? "\u00A0" : letter; // Preserve spaces using a non-breaking space
+            span.style.animationDelay = `${i * 0.1}s`; // Add animation delay
+            rainbowText.append(span);
+        });
+    </script>
+</body>
+
+</html>

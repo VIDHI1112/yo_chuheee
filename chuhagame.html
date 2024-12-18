@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="chuhagame.css">
+  <title>chuha pakdega chuha</title>
+  <link rel="icon" href="static/photo/chuha.jpg" type="image/x-icon">
+
+</head>
+<body>
+  <h1>🐭 oyii chuheee catch the chuhaass! 🐭</h1>
+  <div id="gameArea"></div>
+  <div id="finalMessage">🎉 Yayy saare chuhee pkdlia 🎉</div>
+  <button id="nextPageButton" onclick="redirectToNextPage()">Now, you are certified chuhaaa</button>
+
+  <script>
+    const gameArea = document.getElementById("gameArea");
+    const finalMessage = document.getElementById("finalMessage");
+    const nextPageButton = document.getElementById("nextPageButton");
+    const totalRats = 15; // Total rats to place
+    let ratsCaught = 0; // Counter for caught rats
+    const existingPositions = []; // Track rat positions
+
+    const messages = [
+      "🌈 ohooo chuhee kitna acha lgra hay tu! 🐀",
+      "🌟tu chapri chuha hay! 🐭",
+      "🌟tu na buddhu hay! 🐁",
+      "🌈 baawla chuhaaaaaaa! 🐹",
+      "🎉mera cute sa chuhaaaa! 🐹",
+      "✨ayee cute cute chuhaa! 🐁",
+      "🌟chutku sa chuhaaa! 🐭",
+      "🌟whiteee whiteeyy angrezi chuhaaa! 🐭",
+      "🎉bevkuff chuhaa! 🐁",
+      "🌈meraa sabseee acha chuhaaaa! 🐹🌟",
+      "🎉bestttt chuhaaaa! 🐭",
+      "🎉pinky shizukaa chuhaaa! 🐀",
+    ];
+
+    const ratImages = [
+      "static/photo/chuha.jpg",
+      "static/photo/chuhatv1.jpg",
+      "static/photo/chuhabiscuit.jpg",
+      "static/photo/chuhacake.jpg",
+      "static/photo/chuhacakeee.jpg",
+      "static/photo/chuhacandle.jpg",
+      "static/photo/chuhacheeze.jpg",
+      "static/photo/chuhafire.jpg",
+      "static/photo/chuhaguitar1.jpg",
+      "static/photo/chuhaneck3.jpg",
+      "static/photo/chuhashizu.jpg",
+      "static/photo/chuha4.jpg"
+    ]; // Updated to use static paths
+
+    function isOverlapping(x, y, width, height) {
+      for (const [existingX, existingY] of existingPositions) {
+        if (
+          x < existingX + width &&
+          x + width > existingX &&
+          y < existingY + height &&
+          y + height > existingY
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function createRat() {
+      const rat = document.createElement("img");
+      rat.src = ratImages[Math.floor(Math.random() * ratImages.length)];
+      rat.classList.add("rat");
+
+      const gameWidth = gameArea.offsetWidth;
+      const gameHeight = gameArea.offsetHeight;
+      const ratWidth = 70;
+      const ratHeight = 70;
+
+      let x, y;
+      let attempts = 0;
+
+      do {
+        x = Math.random() * (gameWidth - ratWidth);
+        y = Math.random() * (gameHeight - ratHeight);
+        attempts++;
+      } while (isOverlapping(x, y, ratWidth, ratHeight) && attempts < 100);
+
+      existingPositions.push([x, y]);
+      rat.style.left = `${x}px`;
+      rat.style.top = `${y}px`;
+
+      rat.addEventListener("click", (event) => {
+        catchRat(event, rat);
+      });
+
+      gameArea.appendChild(rat);
+    }
+
+    function catchRat(event, rat) {
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const message = document.createElement("div");
+      message.classList.add("popup-message");
+      message.textContent = randomMessage;
+      message.style.left = rat.offsetLeft + "px";
+      message.style.top = rat.offsetTop + "px";
+      gameArea.appendChild(message);
+
+      setTimeout(() => message.remove(), 18000);
+      rat.remove();
+      ratsCaught++;
+
+      if (ratsCaught === totalRats) {
+        showFinalMessage();
+      }
+    }
+
+    function showFinalMessage() {
+      finalMessage.style.display = "block";
+      nextPageButton.style.display = "block";
+    }
+
+    function redirectToNextPage() {
+      window.location.href = "thirdpage.html"; // Specify the URL of the next page here
+    }
+
+    function startGame() {
+      for (let i = 0; i < totalRats; i++) {
+        createRat();
+      }
+    }
+
+    startGame();
+  </script>
+</body>
+</html>
